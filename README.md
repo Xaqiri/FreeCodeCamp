@@ -1,4 +1,2 @@
-# FreeCodeCamp
-Repo for FreeCodeCamp projects
-
-Contains all the projects I finish while going through the FreeCodeCamp curriculum.  
+# Weather
+The Weather App created for the FreeCodeCamp Front End Certificate 
