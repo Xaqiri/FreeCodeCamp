@@ -1,5 +1,5 @@
 // Colors: [bgColor, titleColor, textColor, footerColor]
-var dayColors = ["#78efff", "#ffc149", "#000a40", "#ff7a00"]; 
+var dayColors = ["#00e0ff", "#faff00", "#001dba", "#de6a00"];
 var nightColors = ["#080C14", "#AADDDD", "#BBBBCC"];
 var d = new Date();
 var h = d.getHours();
@@ -45,7 +45,7 @@ var tempConversion = function(temp) {
 };
 
 var getTime = function() {
-    if (h <= 6 || h >=19) {
+    if (h < 6 || h >=19) {
         $("body").css("background-color", nightColors[0]);
         $("#title").css("color", nightColors[1]);
         $("body").css("color", nightColors[2]);
@@ -58,6 +58,18 @@ var getTime = function() {
         timeOfDay = "day";
     }
     return timeOfDay;
+};
+
+var updateMessage = function() {
+    if (h < 4 || h >= 20) {
+        $("#title h1").html("Good night!  Here's the weather:  ");
+    } else if (h < 12) {
+        $("#title h1").html("Good morning!  Here's the weather:  ");
+    } else if (h < 18) {
+        $("#title h1").html("Good afternoon!  Here's the weather:  ");
+    } else {
+        $("#title h1").html("Good evening!  Here's the weather:  ");
+    }
 };
 
 $(document).ready(function() {
@@ -88,6 +100,7 @@ $(document).ready(function() {
                     temp = tempConversion(temp);
                     $("#tempNum").html(temp + " ");
                 });
+                updateMessage();
                 mo("#tempMode");
                 });
             });
