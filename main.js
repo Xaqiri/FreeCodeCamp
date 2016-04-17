@@ -1,5 +1,5 @@
 // Colors: [bgColor, titleColor, textColor, footerColor]
-var dayColors = ["#f4f261", "#6b0000", "#402800", "#ff7a00"];
+var dayColors = ["#78efff", "#ffc149", "#000a40", "#ff7a00"]; 
 var nightColors = ["#080C14", "#AADDDD", "#BBBBCC"];
 var d = new Date();
 var h = d.getHours();
