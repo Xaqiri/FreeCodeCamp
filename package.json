@@ -1,0 +1,26 @@
+{
+  "name": "weather_app",
+  "version": "1.0.0",
+  "description": "Standalone weather app using Electron",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Xaqiri/Weather.git"
+  },
+  "keywords": [
+    "weather"
+  ],
+  "author": "Zachary Robbins",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Xaqiri/Weather/issues"
+  },
+  "homepage": "https://github.com/Xaqiri/Weather#readme",
+  "devDependencies": {
+    "electron-packager": "^7.0.2",
+    "electron-prebuilt": "^1.1.2"
+  }
+}

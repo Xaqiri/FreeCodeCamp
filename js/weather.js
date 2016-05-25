@@ -1,5 +1,6 @@
 // Colors: [bgColor, titleColor, textColor, footerColor]
-var dayColors = ["#00e0ff", "#faff00", "#001dba", "#de6a00"];
+//var dayColors = ["#00e0ff", "#faff00", "#001dba", "#de6a00"];
+var dayColors = ["#080C14", "#AADDDD", "#BBBBCC"];
 var nightColors = ["#080C14", "#AADDDD", "#BBBBCC"];
 var d = new Date();
 var h = d.getHours();
@@ -72,7 +73,7 @@ var updateMessage = function() {
     }
 };
 
-$(document).ready(function() {
+$(function() { 
     var loc = [];
     var cityName = "";
     var country = "";
@@ -81,7 +82,7 @@ $(document).ready(function() {
     var apiKey = "8a5910e9d87b9b06f733d4de4979b649";
     var conditionIcon = "";
     var conID = 0;
-    var timeOfDay = getTime();
+    var timeOfDay = getTime(); 
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
             $.getJSON("http://api.openweathermap.org/data/2.5/forecast/weather?lat=" + position.coords.latitude + "&lon=" + position.coords.longitude + "&units=imperial" + "&APPID=" + apiKey, function(a) {
