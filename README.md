@@ -1,2 +1,2 @@
 # Weather
-The Weather App created for the FreeCodeCamp Front End Certificate 
+Desktop version of my Weather App.  Executable can be found in the app folder.  
