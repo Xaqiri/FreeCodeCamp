@@ -17,8 +17,6 @@ let locationData = {
   'conditionID': this.conID
 }
 
-/* eslint-disable no-undef */
-/* eslint-disable brace-style */
 // Mouseover function for the F <=> C conversion button
 let mo = function (id) {
   $(id).mouseover(function () {
