@@ -22,5 +22,12 @@
   "devDependencies": {
     "electron-packager": "^7.0.2",
     "electron-prebuilt": "^1.1.2"
+  },
+  "standard": {
+    "ignore": [
+      "/js/jquery.min.js",
+      "/app/**",
+      "main.js"
+    ]
   }
 }
