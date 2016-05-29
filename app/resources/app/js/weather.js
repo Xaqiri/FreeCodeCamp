@@ -2,10 +2,12 @@
 //var dayColors = ["#00e0ff", "#faff00", "#001dba", "#de6a00"];
 var dayColors = ["#080C14", "#AADDDD", "#BBBBCC"];
 var nightColors = ["#080C14", "#AADDDD", "#BBBBCC"];
+// The following three var are used to change app colors based on time of day 
 var d = new Date();
 var h = d.getHours();
 var timeOfDay = "";
 
+// Mouseover function, used to highlight the F/C toggle for temperature 
 var mo = function(id) {
     $(id).mouseover(function() {
         $(this).css("color", "#FFF");
@@ -16,10 +18,12 @@ var mo = function(id) {
     });
 };
 
+// Gets id for weather conditions 
 var getConditionID = function(a) {
     return a.list[0].weather[0].id;
 };
 
+// Picks an icon based on the weather conditions id 
 var getIcon = function(id) {
     var weatherIcons = ["wi-day-sunny", "wi-night-clear", "wi-cloudy",
     "wi-raindrops", "wi-snowflake-cold", "wi-cloud"];
@@ -33,6 +37,7 @@ var getIcon = function(id) {
     return weatherIcons[icon];
 };
 
+// Converts between farenheit and celsius 
 var tempConversion = function(temp) {
     var newTemp = 0;
     if ($("#tempMode").text()==="F") {
@@ -45,6 +50,7 @@ var tempConversion = function(temp) {
     return newTemp;
 };
 
+// Changes app colors based on time of day 
 var getTime = function() {
     if (h < 6 || h >=19) {
         $("body").css("background-color", nightColors[0]);
@@ -61,19 +67,26 @@ var getTime = function() {
     return timeOfDay;
 };
 
+// Displays an appropriate message based on time of day 
 var updateMessage = function() {
+    var title = $("#title h1"); 
     if (h < 4 || h >= 20) {
-        $("#title h1").html("Good night!  Here's the weather:  ");
+        title.html("Good night!  Here's the weather:  ");
     } else if (h < 12) {
-        $("#title h1").html("Good morning!  Here's the weather:  ");
+        title.html("Good morning!  Here's the weather:  ");
     } else if (h < 18) {
-        $("#title h1").html("Good afternoon!  Here's the weather:  ");
+        title.html("Good afternoon!  Here's the weather:  ");
     } else {
-        $("#title h1").html("Good evening!  Here's the weather:  ");
+        title.html("Good evening!  Here's the weather:  ");
     }
 };
 
+<<<<<<< HEAD:app/resources/app/js/weather.js
 $(function() { 
+=======
+// Main function 
+$(document).ready(function() {
+>>>>>>> refs/remotes/origin/master:weather.js
     var loc = [];
     var cityName = "";
     var country = "";
@@ -84,8 +97,12 @@ $(function() {
     var conID = 0;
     var timeOfDay = getTime(); 
     if (navigator.geolocation) {
+        // Gets location data 
         navigator.geolocation.getCurrentPosition(function(position) {
-            $.getJSON("http://api.openweathermap.org/data/2.5/forecast/weather?lat=" + position.coords.latitude + "&lon=" + position.coords.longitude + "&units=imperial" + "&APPID=" + apiKey, function(a) {
+            // API call to get forecast for current location 
+            $.getJSON("http://api.openweathermap.org/data/2.5/forecast/weather?lat=" + position.coords.latitude + "&lon=" + position.coords.longitude + "&units=imperial" + "&APPID=" + apiKey, 
+            // a is the weather data json
+            function(a) { 
                 cityName = a.city.name;
                 country = a.city.country;
                 temp = Math.round(a.list[0].main.temp);
