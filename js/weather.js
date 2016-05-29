@@ -94,7 +94,7 @@ let updateHTML = function (locationData, a) {
 $(function () {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function (position) {
-      $.getJSON('http://api.openweathermap.org/data/2.5/forecast/weather?lat=' + position.coords.latitude + '&lon=' + position.coords.longitude + '&units=imperial' + '&APPID=' + apiKey, function (a) {
+      $.getJSON('api.openweathermap.org/data/2.5/forecast/weather?lat=' + position.coords.latitude + '&lon=' + position.coords.longitude + '&units=imperial' + '&APPID=' + apiKey, function (a) {
         locationData.cityName = a.city.name
         locationData.country = a.city.country
         locationData.temp = Math.round(a.list[0].main.temp)
