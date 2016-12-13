@@ -1,9 +1,9 @@
 body {
     height: 100%;
     width: 100%;
-    background-color: #000;
+    background-color: #004;
+    color: #DDD;
     text-align: center;
-    font-size: 32px;
     visibility: hidden; 
 }
 
@@ -12,8 +12,7 @@ footer a {}
 .clickable {}
 
 #title h1{
-    font-size: 64px;
-    padding-bottom: 50px;
+    padding-bottom: 5%;
 }
 
 #temp {
@@ -21,7 +20,9 @@ footer a {}
 }
 
 #tempNum {}
-#tempMode {}
+#tempMode {
+    cursor: pointer;
+}
 #location {}
 #conditions {}
 

@@ -3,7 +3,7 @@ const apiKey = '8a5910e9d87b9b06f733d4de4979b649'
 // Colors: [bgColor, titleColor, textColor, footerColor]
 // let dayColors = ["#00e0ff", "#faff00", "#001dba", "#de6a00"]
 let dayColors = ['#080C14', '#AADDDD', '#BBBBCC']
-let nightColors = ['#080C14', '#AADDDD', '#BBBBCC']
+let nightColors = ['#004', '#AADDDD', '#DDD'] // original bg-color: '#080C14'
 let d = new Date()
 let h = d.getHours()
 let timeOfDay = ''
@@ -64,7 +64,7 @@ let getTime = function () {
     $('body').css('color', nightColors[2])
     timeOfDay = 'night'
   } else {
-    $('body').css('background-color', dayColors[0])
+    $('body').css('background-color', nightColors[0])
     $('#title').css('color', dayColors[1])
     $('body').css('color', dayColors[2])
     $('footer a').css('color', dayColors[3])
