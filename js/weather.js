@@ -1,20 +1,20 @@
 const apiKey = '8a5910e9d87b9b06f733d4de4979b649'
 
 // Colors: [bgColor, titleColor, textColor, footerColor]
-// let dayColors = ["#00e0ff", "#faff00", "#001dba", "#de6a00"]
-let dayColors = ['#080C14', '#AADDDD', '#BBBBCC']
-let nightColors = ['#004', '#AADDDD', '#DDD'] // original bg-color: '#080C14'
+let dayColors = ["#0ad", "#ff0", "#fff", "#0f0"]
+let nightColors = ['#001', '#add', '#ddd', '#a0a']
+let bgColor, fgColor, tiColor, ftColor
 let d = new Date()
 let h = d.getHours()
 let timeOfDay = ''
 
 let locationData = {
-  'city_name': this.name,
-  'country': this.country,
-  'temperature': this.temp,
-  'weather_conditions': this.conditions,
-  'locationIcon': this.icon,
-  'conditionID': this.conID
+	cityName: this.name,
+	country: this.country,
+	temp: this.temp,
+	conditions: this.conditions,
+	conditionId: this.conId,
+	icon: this.icon
 }
 
 /* eslint-disable no-undef */
@@ -22,27 +22,23 @@ let locationData = {
 // Mouseover function for the F <=> C conversion button
 let mo = function (id) {
   $(id).mouseover(function () {
-    $(this).css('color', '#FFF')
+    if (timeOfDay === 'day') { $(this).css('color', dayColors[1]) } else { $(this).css('color', nightColors[1]) }
   })
   $(id).mouseout(function () {
     if (timeOfDay === 'day') { $(this).css('color', dayColors[2]) } else { $(this).css('color', nightColors[2]) }
   })
 }
 
-let getConditionID = function (a) {
-  return a.list[0].weather[0].id
-}
-
 let getWeatherIcon = function (id) {
   let weatherIcons = ['wi-day-sunny', 'wi-night-clear', 'wi-cloudy',
     'wi-raindrops', 'wi-snowflake-cold', 'wi-cloud']
   let icon = 0
-  if (id >= 200 && id < 600) { icon = 3 }
+	if (id >= 200 && id < 600) { icon = 3 }
   else if (id >= 600 && id < 700) { icon = 4 }
   else if (id === 800 && timeOfDay === 'day') { icon = 0 }
   else if (id === 800 && timeOfDay === 'night') { icon = 1 }
   else if (id > 800 && id < 900) { icon = 2 } else { id = 5 }
-  return weatherIcons[icon]
+	return weatherIcons[icon]
 }
 
 let temperatureConversion = function (temp) {
@@ -58,17 +54,18 @@ let temperatureConversion = function (temp) {
 }
 
 let getTime = function () {
-  if (h < 6 || h >= 19) {
-    $('body').css('background-color', nightColors[0])
-    $('#title').css('color', nightColors[1])
-    $('body').css('color', nightColors[2])
-    timeOfDay = 'night'
+	if (h < 6 || h >= 19) {
+		bgColor = nightColors[0]
+		tiColor = nightColors[1]
+		fgColor = nightColors[2]
+		ftColor = nightColors[3]
+		timeOfDay = 'night'
   } else {
-    $('body').css('background-color', nightColors[0])
-    $('#title').css('color', dayColors[1])
-    $('body').css('color', dayColors[2])
-    $('footer a').css('color', dayColors[3])
-    timeOfDay = 'day'
+		bgColor = dayColors[0]
+		tiColor = dayColors[1]
+		fgColor = dayColors[2]
+		ftColor = dayColors[3]
+		timeOfDay = 'day'
   }
 }
 
@@ -84,32 +81,48 @@ let updateMessage = function () {
   }
 }
 
-let updateHTML = function (locationData, a) {
+let updateHTML = function () {
   $('#location').html(locationData.cityName + ', ' + locationData.country)
   $('#conditions').html(locationData.conditions)
   $('#tempNum').html(locationData.temp + ' ')
-  locationData.conID = getConditionID(a)
-  locationData.conditionIcon = getWeatherIcon(locationData.conID)
-  $('#weatherIcon').html('<i class="' + 'wi ' + locationData.conditionIcon + '"></i>')
+  $('#weatherIcon').html('<i class="' + 'wi ' + locationData.icon + '"></i>')
+}
+
+let displayHTML = function () {
+	$('body').animate({
+		opacity: 1,
+		backgroundColor: bgColor,
+		color: fgColor
+	}, 800)
+	$('#title').animate({
+		color: tiColor
+	}, 400)
+	$('footer a').animate({
+		color: ftColor
+	}, 400)
 }
 
 $(function () {
+	getTime()
+	updateMessage()
+	mo('#tempMode')
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function (position) {
-      $.getJSON('http://api.openweathermap.org/data/2.5/forecast/weather?lat=' + position.coords.latitude + '&lon=' + position.coords.longitude + '&units=imperial' + '&APPID=' + apiKey, function (a) {
-        locationData.cityName = a.city.name
-        locationData.country = a.city.country
-        locationData.temp = Math.round(a.list[0].main.temp)
-        locationData.conditions = a.list[0].weather[0].main
-        updateHTML(locationData, a)
-        getTime()
-        $('body').css('visibility', 'visible')
+      $.getJSON('http://api.openweathermap.org/data/2.5/weather?lat=' + position.coords.latitude + '&lon=' + position.coords.longitude + '&units=imperial' + '&APPID=' + apiKey, function (data) {
+				locationData = {
+					cityName: data.name,
+					country: data.sys.country,
+					temp: Math.round(data.main.temp),
+					conditions: data.weather[0].main,
+					conditionId: data.weather[0].id,
+				}
+				locationData.icon = getWeatherIcon(locationData.conditionId)
+				updateHTML()
+				displayHTML()
         $('#tempMode').on('click', function () {
           locationData.temp = temperatureConversion(locationData.temp)
           $('#tempNum').html(locationData.temp + ' ')
         })
-        updateMessage()
-        mo('#tempMode')
       })
     })
   }

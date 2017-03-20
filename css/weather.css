@@ -1,10 +1,10 @@
 body {
     height: 100%;
     width: 100%;
-    background-color: #004;
-    color: #DDD;
+    background-color: #000;
+		color: #FFF;
     text-align: center;
-    visibility: hidden; 
+    opacity: 0;
 }
 
 footer a {}
@@ -19,7 +19,9 @@ footer a {}
     display: inline-block;
 }
 
-#tempNum {}
+#tempNum {
+	margin-right: -8px;
+}
 #tempMode {
     cursor: pointer;
 }
